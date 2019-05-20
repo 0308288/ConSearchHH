@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,8 +8,8 @@
 </head>
 <body>
 
-    <!---->
-    <h1
+    <h1 style="text-align: center;">ConSearch</h1>
+
 
     <!-- Artist Select Box -->
     <form id="artist-form">
@@ -41,10 +41,11 @@
     {
         // Querying the bandsintown api for the selected artist, the 
         // ?api_id parameter is required, but can equal anything
-        var queryURL = "https://rest.bandsintown.com/artists/" + artists + "?app_id=codingbootcamp";
+        var queryURL = "https://rest.bandsintown.com/artists/" + artist +
+                        "?app_id=codingbootcamp";
         $.ajax({
             url: queryURL,
-            method: "Get"
+            method: "GET"
         }).done(function(response) {
 
             // printing the entire objects to console  
@@ -60,9 +61,23 @@
 
             // empty the contents of the artist_div, append the new artist content
             $("#artist-div").empty();
-            $("#artist-div").append(artistUrl, artistImage)
-        })
+            $("#artist-div").append(artistUrl, artistImage, trackerCount, upcomingEvents, goToArtist);
+        });
     }
+
+    // Event handler for user clicking the select-artist button
+    $("#select-artist").on("click", function(event) {
+
+        // Preventing the button from trying to submit the form
+        event.preventDefault();
+
+        // Storing the artist name
+        var artist = $("#artist-input").val().trim();
+
+        // Running the searchBandsInTown function (passing in the artist as an argument)
+        searchBandsInTown(artist);
+
+        });
 
 </script>
 
